@@ -2,6 +2,12 @@
 
 # /etc/rc.local
 
+# Remove any existing rules
+iptables -t nat -F
+iptables -t mangle -F
+iptables -F
+iptables -X
+
 # Default - drop all incoming packets, and allow all outgoing packets
 iptables -P INPUT DROP
 iptables -P FORWARD DROP

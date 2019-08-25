@@ -1,0 +1,17 @@
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: no
+      addresses: [192.168.2.11/24]
+      optional: true
+  wifis:
+    wlan0:
+      dhcp4: yes
+      access-points:
+        "OSML-LAN2":
+          password: "cobalt60"
+      gateway4: 192.168.2.1
+      nameservers:
+        addresses: [192.168.2.1, 8.8.8.8]
+      optional: true

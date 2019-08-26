@@ -2,31 +2,7 @@
 
 # /etc/rc.local
 
-# Remove any existing rules
-iptables -t nat -F
-iptables -t mangle -F
-iptables -F
-iptables -X
-
-# Default - drop all incoming packets, and allow all outgoing packets
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
-iptables -P OUTPUT ACCEPT
-
-# Accept inbound packets from localhost and LAN interface
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A INPUT -i eth0 -j ACCEPT
-
-# Accept incoming packets from the WAN interface
-iptables -A INPUT -i wlan0 -j ACCEPT
-
-# Forward LAN packets to the WAN
-iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
-
-# Forward WAN packets to the LAN if the LAN initiated the connection
-iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
-
-# NAT traffic going out of the WAN interface
+# Apply NAT to any traffic going out of the WAN interface
 iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
 
 # rc.local must exit with a 0 status

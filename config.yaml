@@ -3,7 +3,14 @@ network:
   ethernets:
     eth0:
       dhcp4: no
-      addresses: [192.168.2.11/24]
+      addresses: [192.168.5.1/24]
+      routes:
+       - to: 192.168.5.0/24
+         via: 192.168.5.1
+         table: 105
+      routing-policy:
+       - from: 192.168.5.0/24
+         table: 105
       optional: true
   wifis:
     wlan0:
@@ -12,6 +19,13 @@ network:
         "OSML-LAN2":
           password: "cobalt60"
       gateway4: 192.168.2.1
+      routes:
+       - to: 192.168.2.0/24
+         via: 192.168.2.1
+         table: 102
+      routing-policy:
+       - from: 192.168.2.0/24
+         table: 102
       nameservers:
         addresses: [192.168.2.1, 8.8.8.8]
       optional: true
